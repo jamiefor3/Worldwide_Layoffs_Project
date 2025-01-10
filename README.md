@@ -99,9 +99,9 @@ plt.show()
 
 ### Results
 ---
-![Bar plot for industry total laid off]()
+![Bar plot for industry total laid off](Layoff_Analysis/Images/total_layoffs_industry_bar.png)
 
-![Bar plot for industry average percentage laid off]()
+![Bar plot for industry average percentage laid off](Layoff_Analysis/Images/percentage_layoffs_industry_bar.png)
 
 ### Insights
 ---
