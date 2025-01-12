@@ -184,6 +184,8 @@ To explore this relationship, I conducted an analysis using a scatter plot with 
 ---
 ```
 sns.regplot(x='funds_raised_millions', y='total_laid_off', data=funds_no_outliers, scatter_kws={'color': 'black'}, line_kws={'color': 'red'})
+ax = plt.gca()
+ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: f'£{int(x/1000)}b'))
 sns.despine()
 plt.title('Funding Raised vs Total Layoffs')
 plt.xlabel('Funds Raised (Millions)')
@@ -198,7 +200,20 @@ plt.show()
 
 ### Insights
 ---
-bbb
+- **Positive Correlation:** The plot shows a weak but noticeable positive correlation between the funds raised (in millions) and the total layoffs. Companies with higher funding are more likely to have larger layoffs.
+
+- **High Layoffs in Low-Funded Companies:** Many companies with funding below 5 billion still show significant layoffs, likely representing smaller businesses struggling to survive with limited resources during COVID.
+
+- **Outliers in High Funding:** A few companies with very high funding (e.g., above 20 billion) also laid off large numbers of employees. These could be large, well-funded firms restructuring to reduce costs during the pandemic.
+
+- **Confidence Band:** The red shaded region around the regression line suggests variability in the relationship. Layoffs are not strictly proportional to funding raised but are influenced by other factors like industry, company size, or stage.
+
+#### **Key Insights:**
+- **Larger Companies Lay Off More:** Well-funded companies generally have larger workforces, leading to higher layoffs during restructuring or economic downturns.
+
+- **Startup Struggles:** Small companies with limited funding still contribute significantly to layoffs, reflecting their financial vulnerabilities.
+
+- **COVID's Broad Impact:** Layoffs occurred across all funding levels, showing that both small startups and large corporations faced challenges during the pandemic.
 
 ## 4. How did the total worldwide layoffs change over time?
 
@@ -232,7 +247,22 @@ plt.show()
 
 ### Insights
 ---
-bbbbb
+- **Initial Spike (2020 Q2):** A sharp rise in layoffs occurred around April 2020, coinciding with the onset of COVID-19 lockdowns. Businesses responded quickly to economic uncertainty, leading to widespread layoffs.
+
+- **Low Activity (2020 Q3–2021 Q4):** Layoffs declined significantly after mid-2020 and remained relatively low throughout 2021, reflecting partial economic recovery and government stimulus measures.
+
+- **Resurgence (2022):** Layoffs began to rise again in early 2022, possibly due to inflation concerns, tightening economic policies, and reduced consumer demand.
+
+- **Major Spikes (2022 Q4–2023 Q1):** Two prominent spikes are visible in late 2022 and early 2023. These align with the global economic slowdown, tech industry corrections, and layoffs in overstaffed sectors following pandemic hiring booms. Some big names all contributed to such large spikes during this time, such as Google, Meta, Amazon, Microsoft, Twitter and PayPal.
+
+
+#### **Key Insights:**
+- **COVID Onset Impact:** Layoffs peaked early in the pandemic as businesses adjusted to sudden economic constraints.
+
+- **Economic Corrections:** Post-pandemic overhiring and economic challenges contributed to late-2022 and early-2023 spikes.
+
+- **Gradual Increases:** A steady rise in layoffs after 2021 suggests a mix of macroeconomic factors, such as inflation, supply chain issues, and global market uncertainties.
+
 
 ## 5. How do different countries compare with each other?
 
@@ -244,10 +274,7 @@ For this analysis, I filtered countries with more than 10 data entries to ensure
 ---
 ```
 sns.scatterplot(data=country_totals, x='total_laid_off', y='percentage_laid_off', s= 100, hue='Continent', palette=continent_colors, alpha= 0.7 )
-for i, txt in enumerate(country_totals.index):
-    plt.annotate(txt, 
-                 (country_totals['total_laid_off'].iloc[i], 
-                  country_totals['percentage_laid_off'].iloc[i]))
+for i, txt in enumerate(country_totals.index):plt.annotate(txt, (country_totals['total_laid_off'].iloc[i], country_totals['percentage_laid_off'].iloc[i]))
 sns.despine()
 plt.title('Country Job Layoff Comparison')
 plt.xlabel('Average Laid off')
@@ -264,4 +291,57 @@ plt.show()
 
 ### Insights
 ---
-bbbb
+- **Australia:** The highest average percentage of layoffs, though the average number of layoffs is relatively low. This suggests smaller companies with significant workforce reductions in response to economic pressures.
+
+- **United States:** High average layoffs with a lower percentage. This aligns with the United States large economy and workforce, where layoffs often reflect large-scale organizational adjustments.
+
+- **India:** Similar to the U.S, with high average layoffs and a 25% average layoff rate. This suggests significant impacts on large companies.
+
+- **Brazil:** 150 average layoffs with the lowest percentage laid off. Economic challenges during COVID likely contributed to these numbers.
+
+- **European Countries (UK and Germany):** Both of these countries had similar layoff averages and percentages. These countries experienced balanced impacts across industries during economic downturns.
+
+- **Canada and Israel:** The Lowest average layoff and percentages. These reflect smaller but steady economic disruptions during COVID.
+
+- **Singapore:** Slightly higher average layoffs but lower percentage, indicative of large organizations in sectors like retail and finance being affected.
+
+#### **Key Insights:**
+- **Regional Variation:** Countries with smaller economies (e.g., Australia, Brazil) saw higher layoff percentages, while larger economies (e.g., U.S., India) experienced higher average layoffs but lower percentages.
+
+- **Industry Influence:** Tech-heavy countries (e.g., United States, India, Singapore) likely drove higher layoff averages due to corrections in overhiring during the pandemic.
+
+- **Economic Scale:** Larger workforces distribute layoffs over a broader base, resulting in lower percentage impacts for economies like the U.S. and India.
+
+- **Australia's Outlier Status:** Its unique combination of high layoff percentages and low averages may reflect targeted reductions in specific, smaller sectors.
+
+# What I learned
+This was my first solo project where I put everything together myself, it was also my first time using SQL for a project, therefore I learned a lot of new knowledge and skills during this time. 
+
+- **SQL:** Using SQL for both some exploratory data analysis and data cleaning widened my scope of what I can do with the programme, as well as how I can export my new data from SQL. 
+- **Job Market Impact:** While analysing the data I was able to better understand just how easily workforces can be affected by affected by conditions that are out of our control.
+
+
+# Insights
+This project uncovered some key insights about recent worldwide layoffs:
+
+- **Industry-Specific Layoffs:** The high percentage of layoffs in Education and Healthcare highlights how even critical industries were not immune to disruptions during COVID, emphasizing structural weaknesses and shifting priorities (e.g., remote learning, telemedicine). Meanwhile, total layoffs in Transportation and Retail underline the devastating effects on industries heavily reliant on in-person activities, showcasing the economic ripple effects of lockdowns.
+
+- **Company Stage Vulnerability:** The stark layoffs in early-stage companies reflect the fragility of startups during economic downturns. These companies rely on external funding to survive, and with investors tightening budgets during the pandemic, many had no choice but to reduce staff. This underscores the high-risk nature of entrepreneurship and the challenges in sustaining growth during global crises.
+
+- **Funding vs. Layoffs:** The disconnect between high funding levels and significant layoffs illustrates that money alone doesn’t ensure stability. Many of these companies likely overexpanded during the pandemic boom (e.g., in tech sectors) and had to adjust to slower-than-expected growth. This highlights the importance of sustainable growth strategies over aggressive scaling.
+
+- **Country-Specific Patterns:** Higher layoffs in tech-heavy economies like the U.S. and India demonstrate how overhiring during the pandemic created unsustainable workforces, leading to significant corrections. In contrast, countries with smaller, more specialized economies (e.g., Australia and Brazil) saw layoffs driven by local demand changes, illustrating how the pandemic’s impact varied widely based on economic structure and industry focus.
+
+# Challenges With This Project
+This project was not without its set backs, which forced me to be adaptable with my analysis.
+
+- **Data Inconsistency:** The data that I had to work with was only around half the size of the original dataset, which had a lot of missing values which would have disrupted my analysis.
+
+- **Data Visualisation:** This project contained some basic bar plots which I was confident creating, but I challenged myself to push myself with some visualisations like the layoffs over time and country comparison graphs. I was able to create these in the way I wanted, but it was something that I had to research and teach myself on.
+
+# Conclusion
+The layoff trends during COVID-19 revealed critical vulnerabilities across industries, company stages, and countries, highlighting the wide-ranging impact of the pandemic on the global workforce. Industries like Education, Healthcare, and Transportation faced significant challenges, reflecting both structural weaknesses and shifts in demand caused by lockdowns and remote work adoption. Startups and early-stage companies were particularly fragile, with their reliance on external funding making them highly susceptible to economic uncertainty.
+
+The data also underscores the importance of sustainable growth strategies, as many well-funded companies struggled to maintain stability, leading to large-scale layoffs. Furthermore, the geographic differences in layoff patterns emphasize how the economic structure and reliance on specific industries shaped the pandemic’s impact in different regions.
+
+Ultimately, this project demonstrates the interconnectedness of global industries and economies, offering valuable lessons on resilience and adaptability for businesses and policymakers navigating future crises. By analyzing these trends, stakeholders can better prepare for potential disruptions and build more sustainable, equitable employment strategies moving forward.
