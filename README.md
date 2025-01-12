@@ -23,7 +23,7 @@ For my analysis of worldwide layoffs, I made use of several key tools:
 - **Git and Github:** Used for version control and sharing my project.
 
 # Data Preparation and Cleanup
-### To prepare my data for analysis I used SQL. There were 6 main stages of the cleanup.
+### To prepare my data for analysis I used SQL. There were 5 main stages of the cleanup.
 
 My queries and notes can be read here:
 [Layoff_Project_Cleaning.sql](Layoff_Project_Cleaning.sql)
